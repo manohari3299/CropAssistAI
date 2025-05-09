@@ -1,0 +1,476 @@
+/* 1. Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  color: #333;
+  background-color: #f8f9fa;
+  line-height: 1.6;
+}
+
+/* 2. Header / Navbar */
+.header {
+  background-color: #fff;
+  border-bottom: 1px solid #e2e2e2;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 15px 30px;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c7a0b; /* Primary Green */
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.navbar li a:hover {
+  color: #2c7a0b;
+}
+
+/* 3. Hero Section */
+.hero {
+  background: url("../images/service1.jpg") center/cover no-repeat;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* You can re-enable or customize this gradient if you want an overlay
+  background: linear-gradient(
+    135deg,
+    rgba(44, 122, 11, 0.7),
+    rgba(44, 122, 11, 0.4)
+  ); */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero-title {
+  font-size: 3rem;
+  margin-bottom: 1.2rem;
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  line-height: 1.4;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #2c7a0b;
+  color: #fff;
+  padding: 0.8rem 1.8rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #276005;
+}
+
+/* 4. Features Section */
+.features {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #fff;
+}
+
+.features h2 {
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  color: #2c7a0b;
+}
+
+.feature-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.feature-card {
+  background-color: #f9fafb;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 320px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon img {
+  width: 60px;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  margin-bottom: 0.5rem;
+  color: #2c7a0b;
+}
+
+/* 5. Services CTA Section */
+.services-cta {
+  background-color: #2c7a0b;
+  color: #fff;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.services-cta h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.services-cta p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.services-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.service-link {
+  display: inline-block;
+  background-color: #fff;
+  color: #2c7a0b;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.service-link:hover {
+  background-color: #276005;
+  color: #fff;
+}
+
+/* 6. Page Headers */
+.page-header {
+  background-color: #fff;
+  text-align: center;
+  padding: 50px 20px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-header h2 {
+  font-size: 2.2rem;
+  color: #2c7a0b;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* 7. Forms (Prediction & General Forms) */
+.form-section {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Layout for prediction pages: form + result side by side (desktop) */
+.prediction-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* Form container (left column) */
+.prediction-form-container {
+  flex: 1 1 400px;
+}
+
+/* Result card container (right column) */
+.prediction-result-container {
+  flex: 1 1 300px;
+  margin-top: 1rem;
+}
+
+/* Grid layout for form fields (two columns on larger screens) */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+}
+
+/* Basic styling for form groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.form-group input {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group input::placeholder {
+  color: #999;
+}
+
+/* Improved dropdown styling */
+.form-group select {
+  appearance: none; /* Remove default arrow (most browsers) */
+  -webkit-appearance: none; /* Safari/Chrome compatibility */
+  -moz-appearance: none; /* Firefox compatibility */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 0.8rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+  width: 100%; /* Full width in the parent container */
+  transition: border-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  background: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='14' height='14' viewBox='0 0 20 20' fill='%23333' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.29289 7.29289C4.90237 6.90237 5.90237 5.90237 6.29289 6.29289L10 10L13.7071 6.29289C14.0976 5.90237 15.0976 6.90237 14.7071 7.29289L10.7071 11.2929C10.3166 11.6834 9.68342 11.6834 9.29289 11.2929L5.29289 7.29289Z' /%3E%3C/svg%3E")
+    no-repeat right 1rem center/1rem;
+}
+
+.form-group select:hover {
+  border-color: #999;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: #2c7a0b;
+  box-shadow: 0 0 0 2px rgba(44, 122, 11, 0.2);
+}
+
+/* The main form styling for prediction pages */
+.prediction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.prediction-form button {
+  background-color: #2c7a0b;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.prediction-form button:hover {
+  background-color: #276005;
+}
+
+/* 8. Prediction Result (Result Card) */
+.result-card {
+  background-color: #eafae1;
+  border-left: 5px solid #2c7a0b;
+  padding: 1.2rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.result-card h3 {
+  color: #2c7a0b;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.result-card p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* 9. Uploaded Image Preview */
+.uploaded-image {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.uploaded-image img {
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 10. Footer */
+.footer {
+  background-color: #fff;
+  border-top: 1px solid #e2e2e2;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+}
+
+/* 11. Animations */
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 12. Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero {
+    height: 60vh;
+  }
+
+  .feature-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .services-links {
+    flex-direction: column;
+  }
+
+  .prediction-form {
+    gap: 1rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .prediction-layout {
+    flex-direction: column;
+  }
+
+  .page-header {
+    padding: 40px 20px;
+  }
+}
+
+.scroll-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  display: inline-flex; /* inline-flex to align text and icon horizontally */
+  align-items: center; /* vertically center them */
+  gap: 0.5rem; /* space between text and arrow */
+  color: #fff; /* text/icon color */
+  font-size: 1rem; /* base font size for the text */
+  padding: 0.8rem 1.2rem;
+  border-radius: 4px;
+  background-color: rgb(71 150 20); /* subtle background */
+  transition: background-color 0.3s, transform 0.3s;
+  animation: bounce 2s infinite; /* if you want the bounce animation */
+}
+
+.scroll-arrow:hover {
+  background-color: rgba(15, 101, 230, 0.2);
+  transform: scale(1.05);
+}
+
+.scroll-arrow-text {
+  /* Additional styling for the text if desired */
+  font-weight: 500;
+}
+
+.arrow-icon {
+  fill: currentColor; /* arrow inherits the text color */
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s;
+}
+
+.scroll-arrow:hover .arrow-icon {
+  transform: translateX(3px); /* shift arrow slightly on hover */
+}
+
+/* Bouncing Animation for Arrow (optional) */
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}

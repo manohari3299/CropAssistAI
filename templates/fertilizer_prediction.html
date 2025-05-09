@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fertilizer Prediction - CropAssistAI</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <!-- Include Select2 CSS for searchable dropdown -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="navbar">
+        <div class="logo">CropAssistAI</div>
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li>
+              <a href="{{ url_for('crop_prediction') }}">Crop Prediction</a>
+            </li>
+            <li>
+              <a href="{{ url_for('fertilizer_prediction') }}"
+                >Fertilizer Prediction</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('plant_disease_detection') }}"
+                >Plant Disease Detection</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-header">
+        <h2>Fertilizer Prediction</h2>
+        <p>Optimize your fertilizer usage with AI-powered recommendations.</p>
+      </section>
+      <section class="form-section">
+        <form
+          method="POST"
+          action="{{ url_for('fertilizer_prediction') }}"
+          class="prediction-form"
+        >
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="Temparature">Temperature (°C):</label>
+              <input
+                type="number"
+                step="any"
+                name="Temparature"
+                placeholder="e.g. 28"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="Humidity">Humidity (%):</label>
+              <input
+                type="number"
+                step="any"
+                name="Humidity"
+                placeholder="e.g. 65"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="Moisture">Moisture (%):</label>
+              <input
+                type="number"
+                step="any"
+                name="Moisture"
+                placeholder="e.g. 30"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="Soil Type">Soil Type:</label>
+              <select name="Soil Type" required>
+                {% for soil in soil_types %}
+                <option value="{{ soil }}">{{ soil }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="Crop Type">Crop Type:</label>
+              <select name="Crop Type" id="crop_type" required>
+                {% for crop in crop_types %}
+                <option value="{{ crop }}">{{ crop }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="Nitrogen">Nitrogen (N):</label>
+              <input
+                type="number"
+                step="any"
+                name="Nitrogen"
+                placeholder="e.g. 45"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="Potassium">Potassium (K):</label>
+              <input
+                type="number"
+                step="any"
+                name="Potassium"
+                placeholder="e.g. 30"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="Phosphorous">Phosphorous (P):</label>
+              <input
+                type="number"
+                step="any"
+                name="Phosphorous"
+                placeholder="e.g. 20"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Checkbox for real-time weather data (temp/humidity override) -->
+          <div class="form-group">
+            <label>
+              <input type="checkbox" name="use_weather" value="yes" />
+              Use Real-Time Weather Data
+            </label>
+          </div>
+
+          <button type="submit" class="cta-button">Predict Fertilizer</button>
+        </form>
+
+        {% if prediction %}
+        <div class="prediction-result fade-in">
+          <h3>Recommended Fertilizer:</h3>
+          <p>{{ prediction }}</p>
+
+          {% if weather %}
+          <hr />
+          <p style="font-size: 0.9rem">
+            <strong>Real-Time Weather Used:</strong><br />
+            Temperature: {{ weather.temperature }} °C<br />
+            Humidity: {{ weather.humidity }} %<br />
+            <!-- No direct 'Moisture' from API, so we leave it as user input. -->
+          </p>
+          {% endif %}
+        </div>
+        {% endif %}
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 CropAssistAI. All rights reserved.</p>
+    </footer>
+
+    <!-- jQuery (required for Select2) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#crop_type").select2({
+          placeholder: "Select a crop type",
+          allowClear: true,
+        });
+      });
+
+      {% if prediction %}
+      document.addEventListener("DOMContentLoaded", function () {
+        const resultCard = document.querySelector(".prediction-result");
+        if (resultCard) {
+          resultCard.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+      {% endif %}
+    </script>
+  </body>
+</html>

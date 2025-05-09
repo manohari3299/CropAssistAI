@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Plant Disease Detection - CropAssistAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <!-- You can remove the inline styles if your external CSS handles these -->
+    <style>
+      /* Header specific styles */
+      .plant-header {
+        text-align: center;
+        background-color: #fff;
+        color: #2c7a0b;
+        padding: 3.5rem;
+        border-bottom: 2px solid #e2e2e2;
+      }
+      .plant-header h1 {
+        margin: 0 0 0.5rem;
+      }
+      .plant-header p {
+        margin: 0;
+        color: #333;
+      }
+      /* Container */
+      .container {
+        max-width: 800px;
+        margin: 2rem auto;
+        background: #fff;
+        border-radius: 5px;
+        padding: 2rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      /* Instructions */
+      .instructions {
+        background: #e8f5e9;
+        padding: 1rem;
+        border-radius: 5px;
+        margin-bottom: 2rem;
+      }
+      .instructions h2 {
+        margin-top: 0;
+      }
+      .instructions ol {
+        margin: 0;
+        padding-left: 1.5rem;
+      }
+      /* Form */
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+      .form-group input[type="file"],
+      .form-group input[type="text"] {
+        width: 676px;
+        padding: 0.8rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .cta-button {
+        display: inline-block;
+        background-color: #2c7a0b;
+        color: #fff;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+      }
+      .cta-button:hover {
+        background-color: #276005;
+      }
+      /* Preview Image */
+      #preview-container {
+        margin-top: 1rem;
+        text-align: center;
+        font-style: italic;
+        color: #666;
+      }
+      #preview-image {
+        max-width: 30%;
+        margin-top: 1rem;
+        display: none;
+      }
+      /* Result display (if any) */
+      .result-section {
+        margin-top: 2rem;
+        padding: 1rem;
+        border: 1px solid #e2e2e2;
+        border-radius: 4px;
+        background: #f8f8f8;
+      }
+      .result-section h2 {
+        margin-top: 0;
+        color: #2c7a0b;
+      }
+      .result-section p {
+        margin: 0.5rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header / Navbar -->
+    <header class="header">
+      <div class="navbar">
+        <div class="logo">CropAssistAI</div>
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('crop_prediction') }}">Crop Prediction</a></li>
+            <li><a href="{{ url_for('fertilizer_prediction') }}">Fertilizer Prediction</a></li>
+            <li><a href="{{ url_for('plant_disease_detection') }}">Plant Disease Detection</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Page Header -->
+    <header class="plant-header">
+      <h1>Plant Disease Detection - CropAssistAI</h1>
+      <p>Upload an image of your plant to detect diseases and pests</p>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+      <!-- Instructions -->
+      <div class="instructions">
+        <h2>How to use:</h2>
+        <ol>
+          <li>Select an image of your plant (preferably showing affected areas).</li>
+          <li>Enter or select the crop name (e.g., Tomato, Rice, Potato).</li>
+          <li>Click "Analyze Plant" to detect diseases or pests.</li>
+        </ol>
+      </div>
+
+      <!-- Form Section -->
+      <section>
+        <form method="POST" action="{{ url_for('plant_disease_detection') }}" enctype="multipart/form-data" class="prediction-form">
+          <div class="form-group">
+            <label for="image">Upload Plant Image:</label>
+            <input type="file" name="image" id="image" accept="image/*" required onchange="previewImage(event)" />
+          </div>
+
+          <div id="preview-container">
+            <span>Image preview will appear here</span>
+            <img id="preview-image" alt="Plant Preview" />
+          </div>
+
+          <div class="form-group">
+            <label for="crop">Crop Type:</label>
+            <input
+              type="text"
+              name="crop"
+              id="crop"
+              placeholder="Type or select a crop"
+              list="cropList"
+              required
+            />
+            <datalist id="cropList">
+              {% for c in crops %}
+              <option value="{{ c }}">
+              {% endfor %}
+            </datalist>
+          </div>
+          <div class="form-group">
+            <label for="target_lang">Select Language:</label>
+            <select name="target_lang" id="target_lang">
+              <option value="en" selected>English</option>
+              <option value="hi">Hindi</option>
+              <option value="te">Telugu</option>
+            </select>
+          </div>
+
+          <button type="submit" class="cta-button">Analyze Plant</button>
+        </form>
+      </section>
+
+      <!-- Result Section (if any results available) -->
+      {% if disease_name %}
+      <section class="result-section fade-in">
+        <h2>Detection Result</h2>
+        <p><strong>Crop:</strong> {{ selected_crop }}</p>
+        <p><strong>Detected Disease:</strong> {{ disease_name }}</p>
+        <p><strong>Confidence:</strong> {{ confidence }}</p>
+        <div>
+          <h3>Disease Details:</h3>
+          <p><strong>Description:</strong> {{ disease_details.description }}</p>
+          <p><strong>Recommended Fertilizer:</strong> {{ disease_details.recommended_fertilizer }}</p>
+          <p><strong>Treatment:</strong> {{ disease_details.recommended_treatment }}</p>
+          <p><strong>Usage Instructions:</strong> {{ disease_details.usage_instructions }}</p>
+        </div>
+        {% if image_url %}
+        <div class="uploaded-image">
+          <img src="{{ image_url }}" alt="Uploaded Plant Image" />
+        </div>
+        {% endif %}
+      </section>
+      {% endif %}
+    </div>
+
+    <!-- Optional: JS for image preview -->
+    <script>
+      function previewImage(event) {
+        const preview = document.getElementById("preview-image");
+        preview.src = URL.createObjectURL(event.target.files[0]);
+        preview.style.display = "block";
+      }
+    </script>
+  </body>   
+  </html>
