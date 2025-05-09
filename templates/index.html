@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CropAssistAI - Home</title>
+
+    <!-- Include your main CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- Header / Navbar -->
+    <header class="header">
+      <div class="navbar">
+        <div class="logo">CropAssistAI</div>
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li>
+              <a href="{{ url_for('crop_prediction') }}">Crop Prediction</a>
+            </li>
+            <li>
+              <a href="{{ url_for('fertilizer_prediction') }}"
+                >Fertilizer Prediction</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('plant_disease_detection') }}"
+                >Plant Disease Detection</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <h1 class="hero-title">Growing Tomorrow's Agriculture Today</h1>
+          <p class="hero-subtitle">
+            Revolutionizing farming with sustainable solutions and cutting-edge
+            technology.
+          </p>
+
+          <!-- Button with inline SVG arrow -->
+          <button
+            class="scroll-arrow"
+            id="scroll-arrow"
+            aria-label="Scroll to Features"
+          >
+            <span class="scroll-arrow-text">Explore More</span>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="arrow-icon"
+            >
+              <path
+                d="M13 5L20 12L13 19"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M4 12H20"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Features Section (with an ID for scrolling) -->
+      <section class="features" id="features">
+        <h2>Why Choose CropAssistAI</h2>
+        <div class="feature-cards">
+          <!-- Feature Card 1: AI-Powered Recommendations -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <img
+                src="{{ url_for('static', filename='images/ai_recommendations.jpg') }}"
+                alt="AI-Powered Recommendations"
+              />
+            </div>
+            <h3>AI-Powered Crop & Fertilizer Recommendations</h3>
+            <p>
+              Utilize advanced machine learning to get precise crop and
+              fertilizer suggestions based on soil data, weather, and yield
+              goals.
+            </p>
+          </div>
+
+          <!-- Feature Card 2: Real-Time Weather Data -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <img
+                src="{{ url_for('static', filename='images/weather_data.jpg') }}"
+                alt="Real-Time Weather Data"
+              />
+            </div>
+            <h3>Real-Time Weather Data</h3>
+            <p>
+              Integrate live weather forecasts to make informed decisions about
+              irrigation, fertilization, and planting schedules.
+            </p>
+          </div>
+
+          <!-- Feature Card 3: Plant Disease Detection -->
+          <div class="feature-card">
+            <div class="feature-icon">
+              <img
+                src="{{ url_for('static', filename='images/disease_detection.jpg') }}"
+                alt="Plant Disease Detection"
+              />
+            </div>
+            <h3>Plant Disease Detection</h3>
+            <p>
+              Identify plant diseases early using AI-driven image recognition,
+              helping you take timely corrective actions to protect your crops.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services CTA Section -->
+      <section class="services-cta">
+        <h2>Our Services</h2>
+        <p>
+          Leverage our AI-driven tools to boost productivity and sustainability.
+        </p>
+        <div class="services-links">
+          <a href="{{ url_for('crop_prediction') }}" class="service-link"
+            >Crop Prediction</a
+          >
+          <a href="{{ url_for('fertilizer_prediction') }}" class="service-link"
+            >Fertilizer Prediction</a
+          >
+          <a
+            href="{{ url_for('plant_disease_detection') }}"
+            class="service-link"
+            >Plant Disease Detection</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2025 CropAssistAI. All rights reserved.</p>
+    </footer>
+
+    <!-- Simple JS to scroll to the #features section -->
+    <script>
+      document
+        .getElementById("scroll-arrow")
+        .addEventListener("click", function () {
+          document
+            .getElementById("features")
+            .scrollIntoView({ behavior: "smooth" });
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Crop Prediction - CropAssistAI</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- Header / Navbar -->
+    <header class="header">
+      <div class="navbar">
+        <div class="logo">CropAssistAI</div>
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li>
+              <a href="{{ url_for('crop_prediction') }}">Crop Prediction</a>
+            </li>
+            <li>
+              <a href="{{ url_for('fertilizer_prediction') }}"
+                >Fertilizer Prediction</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('plant_disease_detection') }}"
+                >Plant Disease Detection</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <section class="page-header">
+        <h2>Crop Prediction</h2>
+        <p>
+          Discover the best crop for your soil and climate conditions using our
+          AI-powered system.
+        </p>
+      </section>
+      <section class="form-section">
+        <form
+          method="POST"
+          action="{{ url_for('crop_prediction') }}"
+          class="prediction-form"
+        >
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="N">Nitrogen (N):</label>
+              <input
+                type="number"
+                step="any"
+                name="N"
+                placeholder="e.g. 90"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="P">Phosphorus (P):</label>
+              <input
+                type="number"
+                step="any"
+                name="P"
+                placeholder="e.g. 42"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="K">Potassium (K):</label>
+              <input
+                type="number"
+                step="any"
+                name="K"
+                placeholder="e.g. 43"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="temperature">Temperature (°C):</label>
+              <input
+                type="number"
+                step="any"
+                name="temperature"
+                placeholder="e.g. 26.5"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="humidity">Humidity (%):</label>
+              <input
+                type="number"
+                step="any"
+                name="humidity"
+                placeholder="e.g. 80"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="ph">pH:</label>
+              <input
+                type="number"
+                step="any"
+                name="ph"
+                placeholder="e.g. 6.5"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="rainfall">Rainfall (mm):</label>
+              <input
+                type="number"
+                step="any"
+                name="rainfall"
+                placeholder="e.g. 200"
+                required
+              />
+            </div>
+          </div>
+          <!-- Toggle for using real-time weather data -->
+          <div class="form-group">
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="use_weather" value="yes" />
+                Use Real-Time Weather Data
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="cta-button">Predict Crop</button>
+        </form>
+
+        {% if prediction %}
+        <div class="prediction-result fade-in">
+          <h3>Recommended Crop:</h3>
+          <p>{{ prediction }}</p>
+          {% if weather %}
+          <hr />
+          <p style="font-size: 0.9rem">
+            <strong>Real-Time Weather Used:</strong><br />
+            Temperature: {{ weather.temperature }} °C<br />
+            Humidity: {{ weather.humidity }} %<br />
+            Rainfall: {{ weather.rainfall }} mm
+          </p>
+          {% endif %}
+        </div>
+        {% endif %}
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2025 CropAssistAI. All rights reserved.</p>
+    </footer>
+
+    {% if prediction %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const result = document.querySelector(".prediction-result");
+        if (result) {
+          result.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    </script>
+    {% endif %}
+  </body>
+</html>
